@@ -1,65 +1,84 @@
 # QueryForge
 
-QueryForge è una piattaforma per esercitarsi con il linguaggio SQL tramite un'interfaccia web. Il progetto è suddiviso in tre componenti principali:
+Un playground per fare pratica con SQL, che gira interamente nel browser.
+Scrivi query con la sintassi di **MySQL 8**, esegui gli esercizi guidati ed esplora un database di esempio (clienti, prodotti, ordini), senza installare MySQL e senza creare account.
 
-- **Backend** Node.js/Express (cartella `backend`)
-- **Frontend** Vue.js (cartella `frontend`)
-- **Database** MySQL gestito con Docker
+Versione online: [queryforge.io](https://queryforge.io)
 
-## Setup rapido
+## Usarlo sul tuo computer
 
-### Prerequisiti
-
-- Node.js \(>= 16\)
-- Docker e docker-compose
-
-### 1. Avvio del database
-
-Il file `docker-compose.yml` configura un'istanza MySQL e phpMyAdmin. Per avviare i container eseguire:
+Serve [Node.js](https://nodejs.org/) 18 o successivo.
 
 ```bash
-docker-compose up -d
+npm install
+npm run dev
 ```
 
-Il database sarà accessibile sulla porta `3307`, mentre phpMyAdmin sulla `8080`.
+Poi apri http://localhost:5173 nel browser.
 
-### 2. Installazione e avvio del backend
+Altri comandi:
 
-```bash
-cd backend
-npm install            # installa le dipendenze
-npm start              # avvia in modalita' produzione
-# oppure per lo sviluppo:
-npm run dev            # avvia con nodemon
-```
+| Comando | Cosa fa |
+| --- | --- |
+| `npm run build` | crea il sito statico nella cartella `dist/` |
+| `npm run preview` | serve in locale il contenuto di `dist/` |
+| `npm test` | esegue i test del motore SQL |
 
-Copiare `backend/.env.example` in `backend/.env` e sostituire i valori di esempio (password del database, chiavi JWT, casella email). Il file `.env` non va mai committato.
+## Come funziona
 
-### 3. Installazione e avvio del frontend
+- Il database è [SQLite](https://sqlite.org/) compilato in WebAssembly ([sql.js](https://sql.js.org/)) e gira in un Web Worker, quindi una query lenta non blocca la pagina. Dopo 15 secondi la query viene interrotta.
+- Le query vengono tradotte da MySQL a SQLite prima di essere eseguite (cartella `src/engine/`).
+- Il database viene salvato nel browser (IndexedDB) e la cronologia delle query in `localStorage`. Nessun dato lascia il computer dell'utente.
+- **Reset Database** ricrea il database di esempio da `src/engine/template_schema.sql`.
 
-```bash
-cd frontend
-npm install            # installa le dipendenze
-npm run serve          # avvia il server di sviluppo
-# build di produzione:
-npm run build
-```
+## Compatibilità con MySQL
 
-## Comandi principali
+Funzionano come in MySQL:
 
-- `npm start` – avvia il backend (o, se eseguito in altre cartelle, lo script definito nello `package.json`)
-- `npm run dev` – avvio del backend con ricaricamento automatico
-- `npm run serve` – avvia il frontend tramite Vite
-- `npm run build` – genera la build ottimizzata del frontend
-- `npm run preview` – serve localmente la build prodotta
+- `SELECT` con `JOIN`, `GROUP BY`, `HAVING`, subquery (anche con `ANY`/`ALL`), `UNION`, CTE e funzioni finestra;
+- `LIMIT offset, n`, `DIV`, `<=>`, `REGEXP`, `GROUP_CONCAT(... SEPARATOR ...)`;
+- funzioni su date (`DATE_FORMAT`, `DATE_ADD(... INTERVAL ...)`, `DATEDIFF`, `TIMESTAMPDIFF`, `WEEK`...), stringhe (`CONCAT`, `SUBSTRING_INDEX`, `LPAD`, `LOCATE`...) e numeri (`ROUND`, `TRUNCATE`, `MOD`...);
+- `CREATE TABLE` con `AUTO_INCREMENT`, `ENUM`, `DEFAULT CURRENT_TIMESTAMP`, `ON UPDATE CURRENT_TIMESTAMP`, chiavi esterne, `ENGINE=...`;
+- `ALTER TABLE` (`ADD`, `MODIFY`, `CHANGE`, `DROP`, `RENAME`, indici e chiavi esterne);
+- `INSERT ... SET`, `INSERT IGNORE`, `ON DUPLICATE KEY UPDATE`, `UPDATE`/`DELETE` con `ORDER BY ... LIMIT` e con `JOIN`;
+- `SHOW TABLES`, `DESCRIBE`, `SHOW CREATE TABLE`, `SHOW INDEX`, transazioni, `SET FOREIGN_KEY_CHECKS`.
 
-## Esecuzione dei test con Jest
+Come in MySQL, i confronti tra testi non distinguono maiuscole e minuscole e la divisione restituisce sempre un decimale.
 
-I test sono collocati nella cartella `__tests__` e utilizzano Jest.
-Per eseguirli installare Jest nelle dipendenze di sviluppo e lanciare:
+Non sono disponibili nel browser:
 
-```bash
-npx jest
-```
+- variabili (`@nome`);
+- procedure, funzioni, trigger ed eventi;
+- utenti e permessi;
+- `information_schema`;
+- `FULLTEXT`;
+- `WITH ROLLUP`;
+- lettura e scrittura di file.
 
-In alternativa è possibile aggiungere lo script `"test": "jest"` nel `package.json` e quindi usare `npm test`
+Per questi comandi viene mostrato un messaggio che spiega l'alternativa. I messaggi di errore sono tradotti in italiano e riportano anche il dettaglio originale di SQLite.
+
+## Esercizi e database di esempio
+
+- Gli esercizi sono in `src/data/sql_exercises.json`, divisi in capitoli. Ogni lezione ha `id`, `title`, `concept`, `description`, `hint` (facoltativo) e `solution`.
+- Il database di esempio è in `src/engine/template_schema.sql`, in sintassi MySQL.
+
+I test (`npm test`) controllano che tutte le soluzioni degli esercizi funzionino.
+
+## Pubblicare il sito
+
+Dopo `npm run build` la cartella `dist/` è un sito statico: si può pubblicare su qualsiasi hosting statico.
+
+Su Vercel il file `vercel.json` gestisce i link diretti alle pagine (es. `/playground`). Due variabili facoltative attivano il banner cookie e le statistiche (vedi `.env.example`):
+
+- `VITE_GA_ID`: Google Analytics 4;
+- `VITE_IUBENDA_WIDGET_ID`: banner cookie di iubenda.
+
+Senza queste variabili il sito non carica script di terze parti.
+
+## Versione precedente
+
+Fino al 2026 QueryForge usava un server Node.js con un database MySQL per ogni utente. Quel codice è nel primo commit di questo repository.
+
+## Licenza
+
+[MIT](LICENSE)

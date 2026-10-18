@@ -1,9 +1,0 @@
-// backend/.sequelizerc
-const path = require('path');
-
-module.exports = {
-  'config': path.resolve('config', 'config.js'),       // Usa il nostro file JS nella cartella config
-  'models-path': path.resolve('src', 'models'),        // I tuoi modelli sono in src/models (verifica questo percorso!)
-  'seeders-path': path.resolve('src', 'seeders'),      // Seeder (se li usi) in src/seeders (verifica!)
-  'migrations-path': path.resolve('src','migrations')        // Le tue migrazioni sono nella cartella migrations alla root del backend (verifica!)
-};
