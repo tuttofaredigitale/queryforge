@@ -10,10 +10,10 @@
               <router-link to="/"><span class="text-xl font-bold tracking-wide" style="font-family: 'Montserrat', sans-serif;">QueryForge</span></router-link> 
           </div>
           <p class="text-sm text-gray-300 leading-relaxed">
-            La piattaforma per fare pratica con SQL in un ambiente dedicato.
+            Il playground gratuito per fare pratica con SQL, direttamente nel browser.
           </p>
           <p class="mt-4 text-sm text-gray-300">
-            © {{ currentYear }} Alessio Ferrari | P.IVA 05180750233 | Tutti i diritti sono riservati.<br>
+            © {{ currentYear }} Alessio Ferrari | P.IVA 05180750233<br>
             Un progetto di <a href="https://alessioferrari.net/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-300 hover:text-white transition-colors">Alessio Ferrari</a>.
           </p>
         </div>
@@ -22,29 +22,12 @@
         <div class="w-1/2 sm:w-1/4 md:w-auto">
           <h3 class="text-base font-semibold uppercase tracking-wider text-gray-200 mb-4">Legale</h3>
           <ul class="space-y-2">
-            <li><router-link to="/privacy-policy" class="text-gray-300 hover:text-white hover:underline transition-colors">Privacy Policy</router-link></li>
-            <li><router-link to="/cookie-policy" class="text-gray-300 hover:text-white hover:underline transition-colors">Cookie Policy</router-link></li>
+            <li><a href="https://www.iubenda.com/privacy-policy/57193797" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white hover:underline transition-colors">Privacy Policy</a></li>
+            <li><a href="https://www.iubenda.com/privacy-policy/57193797/cookie-policy" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white hover:underline transition-colors">Cookie Policy</a></li>
             <li><router-link to="/terms" class="text-gray-300 hover:text-white hover:underline transition-colors">Termini e Condizioni</router-link></li>
           </ul>
         </div>
 
-        <!-- Risorse -->
-        <div class="w-1/2 sm:w-1/4 md:w-auto">
-          <h3 class="text-base font-semibold uppercase tracking-wider text-gray-200 mb-4">Risorse</h3>
-          <ul class="space-y-2">
-            <li>
-              <a href="https://alessioferrari.net/academy/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white hover:underline transition-colors">
-                AF Cloud Academy
-              </a>
-            </li>
-            <li>
-              <a href="https://alessioferrari.net" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white hover:underline transition-colors">
-                Chi sono
-              </a>
-            </li>
-          </ul>
-        </div>
-            
       </div>
     </div>
   </footer>

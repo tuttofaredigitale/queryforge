@@ -11,26 +11,12 @@ const routes = [
     name: 'Playground',
     component: () => import('../views/Playground.vue')
   },
-  // Le pagine legali
-  {
-    path: '/privacy-policy',
-    name: 'PrivacyPolicy',
-    component: () => import('../views/legal/PrivacyPolicy.vue')
-  },
-  {
-    path: '/cookie-policy',
-    name: 'CookiePolicy',
-    component: () => import('../views/legal/CookiePolicy.vue')
-  },
+  // Le pagine legali. Privacy e Cookie Policy sono su iubenda:
+  // vercel.json reindirizza lì i vecchi indirizzi /privacy-policy e /cookie-policy
   {
     path: '/terms',
     name: 'TermsAndConditions',
     component: () => import('../views/legal/TermsAndConditions.vue')
-  },
-  {
-    path: '/whitelabel',
-    name: 'WhiteLabel',
-    component: () => import('../views/WhiteLabel.vue') // Usiamo l'import dinamico
   },
   // Account e registrazione non esistono più: i vecchi link portano al playground
   { path: '/login', redirect: '/playground' },

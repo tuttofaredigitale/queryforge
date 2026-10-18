@@ -189,7 +189,7 @@
                 :class="[
                     isExercisePanelOpen ? 'text-teal-600 dark:text-teal-400' : 'text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'
                 ]"
-                title="Apri/Chiudi Esercizi Corso SQL"
+                title="Apri/Chiudi Esercizi"
             >
                 <AcademicCapIcon class="h-6 w-6" />
                 <span class="text-xs mt-1 hidden sm:block">Studio</span>

@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/privacy-policy", "destination": "https://www.iubenda.com/privacy-policy/57193797", "permanent": false },
+    { "source": "/cookie-policy", "destination": "https://www.iubenda.com/privacy-policy/57193797/cookie-policy", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

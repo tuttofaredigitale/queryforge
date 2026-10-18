@@ -10,82 +10,61 @@
         Torna alla Home
       </router-link>
     </div>
-    
+
     <div class="prose dark:prose-invert max-w-none">
 
-      <p class="lead text-lg text-gray-600 dark:text-gray-400">Benvenuto su QueryForge! Prima di iniziare il tuo percorso per diventare un maestro di SQL, ti preghiamo di leggere attentamente questi Termini e Condizioni ("Termini"). Utilizzando il nostro sito web e i nostri servizi ("Servizio"), accetti di essere vincolato da questi Termini. Se non sei d'accordo, non potrai utilizzare il Servizio.</p>
-      
-      <h2 id="definizione-servizio">1. Definizione del Servizio</h2>
-      <p>QueryForge fornisce una piattaforma online gratuita per l'apprendimento e la pratica del linguaggio SQL (dialetto MySQL). Ogni utente registrato riceve un ambiente di database personale e isolato, pre-caricato con dati di esempio. Il Servizio permette di eseguire query, visualizzare risultati e esplorare lo schema del database.</p>
-      <p>QueryForge è lo strumento ufficiale di pratica SQL dell'<a href="https://alessioferrari.net/academy/" target="_blank" rel="noopener noreferrer">AF Cloud Academy</a> e non è destinato all'uso in produzione.</p>
+      <p class="lead text-lg text-gray-600 dark:text-gray-400">Benvenuto su QueryForge! Questi Termini e Condizioni ("Termini") regolano l'uso del sito queryforge.io e dell'ambiente per fare pratica con SQL che offre ("Servizio"), messo a disposizione da Alessio Ferrari ("noi"). Usando il Servizio accetti questi Termini: se non sei d'accordo, ti chiediamo di non utilizzarlo.</p>
 
-      <h2 id="registrazione-account">2. Registrazione e Gestione dell'Account</h2>
-      <p>Per accedere al Servizio, è necessario creare un account fornendo un indirizzo email valido, un username e una password. Sei l'unico responsabile della sicurezza della tua password e di tutte le attività svolte tramite il tuo account.</p>
-      <p>Accetti di fornire informazioni accurate e aggiornate durante la registrazione e di aggiornare tempestivamente tali informazioni in caso di modifiche.</p>
-      <p>Accetti di notificarci immediatamente qualsiasi uso non autorizzato del tuo account.</p>
-      <p>Creando un account, dichiari di avere l'età legale per stipulare un contratto vincolante.</p>
+      <h2 id="definizione-servizio">1. Il Servizio</h2>
+      <p>QueryForge è uno strumento gratuito per imparare e fare pratica con il linguaggio SQL usando la sintassi di MySQL. Offre un editor SQL, un database di esempio, una serie di esercizi e la cronologia delle query eseguite.</p>
+      <p>Il database viene creato ed eseguito direttamente nel tuo browser (SQLite, tramite WebAssembly): le query vengono tradotte ed eseguite sul tuo dispositivo, senza passare da un server.</p>
+      <p>QueryForge ha scopo didattico e non è pensato per l'uso in produzione. La compatibilità con MySQL non è completa: alcune funzioni, come variabili, procedure e trigger, non sono disponibili, e in qualche caso i risultati possono differire da quelli di un server MySQL.</p>
 
-      <h2 id="piano-servizio">3. Piano del Servizio</h2>
-      <p>QueryForge è un servizio completamente gratuito. Il piano include:</p>
+      <h2 id="accesso-gratuito">2. Accesso Gratuito</h2>
+      <p>Il Servizio è gratuito e non richiede registrazione: non serve creare un account e non ci sono limiti al numero di query.</p>
+
+      <h2 id="dati-browser">3. Dati Salvati nel Browser</h2>
+      <p>Il database, le query che scrivi e la loro cronologia vengono salvati solo nel browser che stai usando. Non vengono inviati a noi né a terzi: non possiamo vederli né recuperarli.</p>
       <ul>
-        <li>Accesso all'editor SQL</li>
-        <li>Database personale con dati di esempio</li>
-        <li>Cronologia delle query eseguite</li>
-        <li>Limite di 50 query giornaliere (reset a mezzanotte)</li>
+        <li>Se cancelli i dati di navigazione, usi la navigazione privata o cambi browser o dispositivo, il database e la cronologia possono andare persi.</li>
+        <li>Il pulsante <strong>Reset Database</strong> riporta i dati di esempio allo stato iniziale.</li>
+        <li>Ti consigliamo di non inserire dati personali reali o informazioni riservate: restano salvati nel browser senza cifratura.</li>
       </ul>
-      <p>I limiti possono essere modificati a nostra discrezione, previa comunicazione agli utenti.</p>
 
-      <h2 id="uso-accettabile">4. Uso Accettabile e Limitazioni</h2>
-      <p>Il Servizio è fornito esclusivamente per scopi di apprendimento, pratica e test. È severamente vietato:</p>
-      <ul>
-        <li>Utilizzare il Servizio per ospitare dati di produzione, dati sensibili, personali o illegali.</li>
-        <li>Eseguire query dannose (es. query infinite, uso eccessivo di risorse, tentativi di exploit).</li>
-        <li>Accedere a database o dati di altri utenti.</li>
-        <li>Tentare di aggirare i limiti di utilizzo del Servizio.</li>
-        <li>Utilizzare il Servizio per scopi commerciali non autorizzati.</li>
-      </ul>
-      <p>Ci riserviamo il diritto di monitorare l'uso e sospendere/chiudere gli account che violino i Termini.</p>
+      <h2 id="open-source">4. Codice Open Source</h2>
+      <p>Il codice sorgente di QueryForge è pubblicato su <a href="https://github.com/tuttofaredigitale/queryforge" target="_blank" rel="noopener noreferrer">GitHub</a> con licenza MIT: puoi usarlo, studiarlo, modificarlo e ridistribuirlo alle condizioni di quella licenza. La licenza MIT regola l'uso del codice, questi Termini regolano l'uso del sito queryforge.io.</p>
+      <p>Il nome QueryForge e il logo identificano questo sito: chi pubblica una versione modificata non deve presentarla come il sito ufficiale.</p>
 
-      <h2 id="proprieta-intellettuale">5. Proprietà Intellettuale</h2>
-      <p>La piattaforma QueryForge, logo, interfaccia, testi e codice ("Contenuto della Piattaforma") sono di proprietà esclusiva di Alessio Ferrari e protetti da copyright.</p>
-      <p>Le query SQL e i dati inseriti dagli utenti ("Contenuto Utente") restano di proprietà dell'utente. Tuttavia, concedi a QueryForge una licenza non esclusiva per memorizzare, elaborare e analizzare (in forma aggregata e anonima) il Contenuto Utente, al fine di migliorare il Servizio.</p>
-      <p>È vietato copiare, modificare, distribuire o creare opere derivate dal Contenuto della Piattaforma senza autorizzazione scritta.</p>
-      <p>L'utente garantisce di avere i diritti sul Contenuto Utente e si impegna a manlevare QueryForge da qualsiasi reclamo di terzi derivante dall'uso illecito o dalla violazione di diritti.</p>
-      
-      <h2 id="limitazione-responsabilita">6. Limitazione di Responsabilità e Garanzie</h2>
-      <p>Il Servizio è fornito "COSÌ COM'È" e "COME DISPONIBILE", senza garanzie di alcun tipo, esplicite o implicite.</p>
-      <p>Non garantiamo che il Servizio sia sempre disponibile, sicuro o privo di errori, né che i dati siano immuni da perdita o attacchi di terzi.</p>
-      <p>In nessun caso QueryForge o il suo proprietario potranno essere ritenuti responsabili per danni diretti, indiretti, incidentali o consequenziali derivanti dall'uso o dall'impossibilità di usare il Servizio.</p>
-      <p>Essendo un servizio gratuito fornito a scopo didattico, l'utente accetta che non vi sia alcuna aspettativa di disponibilità continua o supporto garantito.</p>
+      <h2 id="uso-accettabile">5. Uso Consentito</h2>
+      <p>Puoi usare il Servizio liberamente per imparare, fare pratica e insegnare SQL. Non è consentito usarlo per attività illecite, né tentare di comprometterne il funzionamento o la sicurezza.</p>
 
-      <h2 id="eliminazione-account">7. Eliminazione dell'Account</h2>
-      <p>Puoi richiedere l'eliminazione del tuo account in qualsiasi momento dalla pagina del tuo profilo. L'eliminazione è un'azione PERMANENTE e IRREVERSIBILE: verranno cancellati database, cronologia query e dati personali.</p>
-      <p>Ci riserviamo inoltre il diritto di eliminare account inattivi da più di 12 mesi, previa comunicazione via email.</p>
+      <h2 id="limitazione-responsabilita">6. Garanzie e Limitazione di Responsabilità</h2>
+      <p>Il Servizio è fornito "così com'è" e "come disponibile", senza garanzie di alcun tipo, esplicite o implicite. Non garantiamo che sia sempre disponibile o privo di errori, né che i risultati delle query coincidano con quelli di MySQL.</p>
+      <p>Nei limiti consentiti dalla legge, non siamo responsabili dei danni, diretti o indiretti, derivanti dall'uso del Servizio o dall'impossibilità di usarlo, compresa la perdita dei dati salvati nel browser. Restano salvi i diritti che la legge riconosce ai consumatori.</p>
+
+      <h2 id="privacy-protezione-dati">7. Privacy e Cookie</h2>
+      <p>Per usare QueryForge non devi fornirci dati personali. I dati eventualmente raccolti durante la navigazione, per esempio a fini statistici, sono trattati secondo il Regolamento (UE) 2016/679 (GDPR) e sono descritti nella <a href="https://www.iubenda.com/privacy-policy/57193797" target="_blank" rel="noopener noreferrer">Privacy Policy</a> e nella <a href="https://www.iubenda.com/privacy-policy/57193797/cookie-policy" target="_blank" rel="noopener noreferrer">Cookie Policy</a>, che fanno parte di questi Termini.</p>
 
       <h2 id="modifiche-termini">8. Modifiche ai Termini</h2>
-      <p>Possiamo modificare i Termini in qualsiasi momento. Le modifiche sostanziali verranno comunicate via email o con avviso in piattaforma con almeno 30 giorni di preavviso.</p>
-      <p>L'uso continuato del Servizio dopo la data di efficacia delle modifiche costituisce accettazione dei nuovi Termini. Se non accetti le modifiche, devi cessare l'uso del Servizio e, se desideri, eliminare il tuo account.</p> 
+      <p>Possiamo aggiornare questi Termini, per esempio quando il Servizio cambia. La versione in vigore è quella pubblicata su questa pagina, con la data dell'ultimo aggiornamento indicata in fondo. Se continui a usare il Servizio dopo una modifica, accetti i nuovi Termini.</p>
 
       <h2 id="legge-foro">9. Legge Applicabile e Foro Competente</h2>
       <p>Questi Termini sono regolati dalla legge italiana.</p>
       <ul>
-        <li>Per i consumatori: foro competente sarà quello di residenza o domicilio dell'utente.</li>
-        <li>Per utenti professionali/aziende: foro esclusivo sarà quello di Verona.</li>
+        <li>Per i consumatori, il foro competente è quello del luogo di residenza o domicilio dell'utente.</li>
+        <li>Per i professionisti e le aziende, il foro competente esclusivo è quello di Verona.</li>
       </ul>
 
-      <h2 id="privacy-protezione-dati">10. Privacy e Protezione Dati</h2>
-      <p>Il trattamento dei dati personali avviene in conformità al Regolamento (UE) 2016/679 (GDPR).</p>
-      <p>Per maggiori informazioni consulta la nostra <router-link to="/privacy-policy">Privacy Policy</router-link>, parte integrante dei presenti Termini.</p> 
-
-      <h2 id="contatti">11. Contatti</h2>
-      <p>Per qualsiasi domanda o richiesta di assistenza fare riferimento:</p>
+      <h2 id="contatti">10. Contatti</h2>
+      <p>Per domande su questi Termini o sul Servizio puoi scriverci:</p>
       <ul>
         <li>Email: <a href="mailto:info&#64;queryforge&#46;io">info&#64;queryforge&#46;io</a></li>
-        <li>Indirizzo: Alessio Ferrari, Via Roma 34A, 37128 Roveré Veronese (VR), Italia</li>
+        <li>Indirizzo: Alessio Ferrari, Via Roma 34/A, 37028 Roverè Veronese (VR), Italia</li>
+        <li>P.IVA: 05180750233</li>
       </ul>
 
       <p class="text-sm text-gray-500 mt-10 pt-4 border-t border-gray-200 dark:border-gray-700/50">
-        Ultimo aggiornamento: 30 Dicembre 2025
+        Ultimo aggiornamento: 18 ottobre 2026
       </p>
 
       <div class="text-center mt-8">

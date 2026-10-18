@@ -28,7 +28,7 @@
       <!-- Mobile Menu -->
       <div v-if="mobileMenuOpen"
            class="absolute top-full left-0 right-0 z-30 md:hidden bg-white dark:bg-gray-800 px-6 py-4 space-y-2 shadow-lg">
-        
+
         <RouterLink
             to="/playground"
             @click="closeMobileMenu"
@@ -50,7 +50,7 @@
             <span class="text-indigo-600">SQL</span> è Difficile solo se non hai il Posto Giusto per Fare Pratica.
           </h1>
           <p class="mt-4 text-lg text-gray-700 dark:text-gray-300">
-            Database personale e un editor intelligente per sperimentare senza paura. Forgia query complesse, visualizza schemi e impara dai tuoi errori in un ambiente sicuro.
+            QueryForge è il playground gratuito per fare pratica con SQL: un database di esempio già pronto, 31 esercizi guidati e un editor dove sperimentare senza paura. Tutto nel tuo browser, senza installare niente.
           </p>
           <div class="mt-8">
             <RouterLink
@@ -58,7 +58,7 @@
               class="inline-block px-8 py-4 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition font-semibold">
               Inizia a Forgiare (Gratis)
             </RouterLink>
-            <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">Nessuna registrazione: il database si crea nel tuo browser.</p>
+            <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">Niente registrazione, nessun limite di query.</p>
           </div>
         </div>
         <div class="w-full md:w-1/2 mb-12 md:mb-0 flex justify-center">
@@ -79,35 +79,52 @@
             <span class="text-3xl">🎉</span>
             <div>
               <h3 class="text-white font-bold text-lg md:text-xl">
-                QueryForge ora è open source!
+                QueryForge ora è gratuito per tutti e open source!
               </h3>
               <p class="text-emerald-100 text-sm md:text-base">
-                Gira interamente nel tuo browser: niente account e nessun limite di query. È lo strumento di pratica SQL dell'<strong class="text-white">AF Cloud Academy</strong>, e il codice è libero (licenza MIT).
+                Niente più account né limiti di query: il database gira direttamente nel tuo browser e il codice è libero, con licenza MIT.
               </p>
             </div>
           </div>
-          <a 
-            href="https://alessioferrari.net/academy/" 
-            target="_blank" 
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            @click="scrollToHowItWorks"
             class="inline-flex items-center px-5 py-2.5 bg-white text-emerald-700 rounded-lg shadow hover:shadow-lg transform hover:-translate-y-0.5 transition font-semibold text-sm whitespace-nowrap"
           >
-            <span>🚀 Scopri i corsi AWS</span>
-            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
+            <span>Scopri come funziona</span>
+            <ArrowDownIcon class="ml-2 h-4 w-4" />
+          </button>
         </div>
+      </div>
+    </section>
+
+    <!-- Il playground -->
+    <section class="py-20 bg-white dark:bg-gray-800">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-4">
+          Tutto in una schermata
+        </h2>
+        <p class="text-lg text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+          Le tabelle a sinistra, l'editor al centro, gli esercizi accanto. Scrivi la query, premi Esegui e vedi subito il risultato.
+        </p>
+        <img
+          :src="playgroundImage"
+          width="2432"
+          height="1600"
+          loading="lazy"
+          alt="Il playground di QueryForge: le tabelle del database, una query con JOIN e GROUP BY, i risultati e un esercizio guidato"
+          class="w-full h-auto max-w-6xl mx-auto rounded-xl shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10"
+        />
       </div>
     </section>
 
     <section class="py-20 bg-gray-50 dark:bg-gray-900">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-4">
-          Costruito per Te, che tu sia Studente o Professionista.
+          Per chi vuole imparare SQL facendo pratica
         </h2>
         <p class="text-lg text-center text-gray-600 dark:text-gray-400 mb-16 max-w-3xl mx-auto">
-          Che tu stia preparando un esame o debuggando una query complessa per il lavoro, QueryForge è la tua palestra SQL personale.
+          Che tu stia preparando un esame, seguendo un corso o ripassando prima di un colloquio, QueryForge è la tua palestra SQL.
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -116,11 +133,25 @@
               <AcademicCapIcon class="h-8 w-8 text-indigo-600" />
             </div>
             <div>
-              <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                Studenti e Neolaureati
-              </h4>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                Studenti
+              </h3>
               <p class="text-gray-600 dark:text-gray-400">
-                Per fare pratica mirata, consolidare la teoria, superare esami e costruire un portfolio di competenze SQL.
+                Per preparare esami e verifiche mettendo subito in pratica la teoria, una query alla volta.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 mt-1">
+              <BookOpenIcon class="h-8 w-8 text-indigo-600" />
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                Chi parte da zero
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Per chi impara da solo o sta cambiando lavoro: ogni esempio di un libro, un video o un corso lo provi su un database vero, già pronto.
               </p>
             </div>
           </div>
@@ -130,39 +161,25 @@
               <CodeIcon class="h-8 w-8 text-indigo-600" />
             </div>
             <div>
-              <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                Sviluppatori Software/Web
-              </h4>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                Sviluppatori
+              </h3>
               <p class="text-gray-600 dark:text-gray-400">
-                Per testare query, migliorare l'interazione con i database, ottimizzare performance e debuggare codice SQL.
+                Per ripassare JOIN, GROUP BY e subquery prima di un colloquio o di un progetto, senza installare un server.
               </p>
             </div>
           </div>
 
           <div class="flex items-start space-x-4">
             <div class="flex-shrink-0 mt-1">
-              <ChartPieIcon class="h-8 w-8 text-indigo-600" />
+              <UserGroupIcon class="h-8 w-8 text-indigo-600" />
             </div>
             <div>
-              <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                Analisti Dati e Professionisti BI
-              </h4>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                Docenti e formatori
+              </h3>
               <p class="text-gray-600 dark:text-gray-400">
-                Per esplorare dataset, validare query complesse prima dell'uso in produzione e affinare tecniche di estrazione dati.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="flex-shrink-0 mt-1">
-              <BriefcaseIcon class="h-8 w-8 text-indigo-600" />
-            </div>
-            <div>
-              <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                Professionisti in Aggiornamento
-              </h4>
-              <p class="text-gray-600 dark:text-gray-400">
-                Per aggiungere rapidamente SQL alle proprie competenze (reskilling) o restare aggiornati sulle best practice (upskilling).
+                Per far esercitare una classe senza installazioni né account: basta condividere un link.
               </p>
             </div>
           </div>
@@ -173,32 +190,90 @@
     <section class="py-20 bg-white dark:bg-gray-800">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-gray-100">
-          Le nostre funzionalità<br />
-          <span class="text-indigo-600">Potenziano</span> il tuo apprendimento
+          Tutto quello che serve<br />
+          per <span class="text-indigo-600">fare pratica</span>
         </h2>
-        <div class="mt-12 grid gap-10 grid-cols-1 md:grid-cols-2">
-          <div class="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition">
-            <TerminalIcon class="mx-auto h-14 w-14 text-indigo-600 group-hover:animate-bounce" />
-            <h3 class="mt-6 text-xl font-semibold text-gray-900 dark:text-gray-100">Un Editor che Lavora con Te</h3>
-            <p class="mt-3 text-gray-600 dark:text-gray-300">
-              Non solo per scrivere codice. Il nostro editor ti aiuta a formattare, completare e analizzare le tue query, permettendoti di concentrarti sulla logica, non sulla sintassi.
-            </p>
-          </div>
-          <div class="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition">
-            <TableIcon class="mx-auto h-14 w-14 text-indigo-600 group-hover:animate-bounce" />
-            <h3 class="mt-6 text-xl font-semibold text-gray-900 dark:text-gray-100">Domina il Database, non solo le Query</h3>
-            <p class="mt-3 text-gray-600 dark:text-gray-300">
-              Non scrivere alla cieca. Il nostro explorer visuale ti permette di navigare tra tabelle e relazioni, per capire davvero la struttura dei dati con cui stai lavorando.
-            </p>
+        <div class="mt-12 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div
+            v-for="feature in features"
+            :key="feature.title"
+            class="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition"
+          >
+            <component :is="feature.icon" class="mx-auto h-12 w-12 text-indigo-600 group-hover:animate-bounce" />
+            <h3 class="mt-6 text-xl font-semibold text-gray-900 dark:text-gray-100">{{ feature.title }}</h3>
+            <p class="mt-3 text-gray-600 dark:text-gray-300">{{ feature.text }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <!-- Come funziona: SQLite nel browser, sintassi MySQL -->
+    <section id="come-funziona" class="scroll-mt-20 py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="container mx-auto px-6 max-w-5xl">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-4">
+          Come funziona
+        </h2>
+        <p class="text-lg text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+          Per funzionare senza server, QueryForge usa <strong class="text-gray-900 dark:text-gray-100">SQLite</strong>, un vero database relazionale che gira direttamente nel browser. Tu però scrivi le query con la sintassi di <strong class="text-gray-900 dark:text-gray-100">MySQL</strong>: QueryForge le traduce al volo.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center">
+          <div>
+            <div class="inline-flex bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full mb-3">
+              <GlobeIcon class="h-7 w-7 text-indigo-600 dark:text-indigo-300" />
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Niente da installare</h3>
+            <p class="text-gray-600 dark:text-gray-400">Apri la pagina e il database è già lì, anche su tablet e telefono.</p>
+          </div>
+          <div>
+            <div class="inline-flex bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full mb-3">
+              <LockClosedIcon class="h-7 w-7 text-indigo-600 dark:text-indigo-300" />
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">I tuoi dati restano con te</h3>
+            <p class="text-gray-600 dark:text-gray-400">Database e cronologia sono salvati nel tuo browser, non su un server.</p>
+          </div>
+          <div>
+            <div class="inline-flex bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full mb-3">
+              <CodeIcon class="h-7 w-7 text-indigo-600 dark:text-indigo-300" />
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Scrivi come in MySQL</h3>
+            <p class="text-gray-600 dark:text-gray-400">DATE_FORMAT, AUTO_INCREMENT, ENUM e LIMIT funzionano come te li aspetti.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Funziona come in MySQL</h3>
+            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+              <li v-for="item in supported" :key="item" class="flex items-start">
+                <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Non disponibile nel browser</h3>
+            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+              <li v-for="item in unsupported" :key="item" class="flex items-start">
+                <XIcon class="h-5 w-5 text-gray-400 mr-2 flex-shrink-0 mt-0.5" />
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-indigo-50 dark:bg-indigo-900/40 border-l-4 border-indigo-600 rounded-r-xl p-6">
+          <p class="text-gray-800 dark:text-gray-200 leading-relaxed">
+            <strong>Per imparare le basi di SQL è l'ideale.</strong> Le query che impari a scrivere qui sono le stesse che userai con MySQL. Quando ti serviranno procedure, trigger o la gestione degli utenti, sarà il momento di passare a un server MySQL vero.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white dark:bg-gray-800">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-16">
-          Inizia in 3 Semplici Passi
+          Inizia in 3 passi
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center">
           <div class="flex flex-col items-center">
@@ -209,7 +284,7 @@
               1. Apri il Playground
             </h3>
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Nessuna registrazione: il database di esempio si crea direttamente nel tuo browser.
+              Nessuna registrazione e niente da installare: il database di esempio si crea nel tuo browser.
             </p>
           </div>
 
@@ -218,10 +293,10 @@
               <CodeIcon class="h-10 w-10 text-indigo-600 dark:text-indigo-300" />
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              2. Scrivi ed Esegui Query
+              2. Scrivi ed esegui query
             </h3>
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Usa l'editor per dare vita alle tue idee. Testa, sperimenta e vedi i risultati delle tue query in tempo reale.
+              Parti da un esercizio o da una query pronta, modificala e guarda subito il risultato.
             </p>
           </div>
 
@@ -230,26 +305,26 @@
               <ChartBarIcon class="h-10 w-10 text-indigo-600 dark:text-indigo-300" />
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              3. Analizza e Impara
+              3. Sbaglia, correggi, impara
             </h3>
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Visualizza i dati, comprendi i risultati e affina le tue competenze a ogni query eseguita. La pratica rende perfetti.
+              Leggi l'errore, sistema la query e riprova. Se qualcosa va storto, Reset Database ti riporta al punto di partenza.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-20 bg-white dark:bg-gray-800">
+    <section class="py-20 bg-gray-50 dark:bg-gray-900">
       <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
           Gratuito e open source
         </h2>
         <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
-          Esercitati senza pensieri.
+          QueryForge è gratis per tutti: niente account, niente abbonamenti, nessun limite di query.
         </p>
         <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          Nessuna registrazione. Nessun costo.
+          Il codice è pubblico su <a href="https://github.com/tuttofaredigitale/queryforge" target="_blank" rel="noopener noreferrer" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">GitHub</a>, con licenza MIT.
         </div>
       </div>
       <div class="container mx-auto px-6 mt-10 max-w-lg">
@@ -263,7 +338,7 @@
           <ul class="mt-6 space-y-3 text-gray-700 dark:text-gray-300 text-left">
             <li class="flex items-start">
               <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-1"/>
-              <span>Editor SQL ed esercizi guidati</span>
+              <span>31 esercizi guidati con soluzioni</span>
             </li>
             <li class="flex items-start">
               <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-1"/>
@@ -271,15 +346,19 @@
             </li>
             <li class="flex items-start">
               <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-1"/>
-              <span>Cronologia query</span>
+              <span>Database di esempio, ripristinabile in un clic</span>
             </li>
             <li class="flex items-start">
               <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-1"/>
-              <span>Database esempio preimpostato</span>
+              <span>Cronologia ed esportazione dei risultati</span>
             </li>
             <li class="flex items-start">
               <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-1"/>
-              <span>I tuoi dati restano nel tuo browser</span>
+              <span>Nessun account: i tuoi dati restano nel tuo browser</span>
+            </li>
+            <li class="flex items-start">
+              <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-1"/>
+              <span>Codice open source con licenza MIT</span>
             </li>
           </ul>
 
@@ -295,26 +374,50 @@
       </div>
     </section>
 
-    <section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <section class="py-20 bg-white dark:bg-gray-800">
       <div class="container mx-auto px-6 max-w-3xl">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">
           Domande Frequenti (FAQ)
         </h2>
 
         <div class="space-y-4">
-          <details class="group bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+          <details class="group bg-gray-50 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
             <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
-              <span class="font-medium text-gray-900 dark:text-gray-100">Che dialetti SQL sono supportati?</span>
+              <span class="font-medium text-gray-900 dark:text-gray-100">È davvero gratis?</span>
               <ChevronDownIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-open:rotate-180" />
             </summary>
             <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-700">
               <p class="text-gray-600 dark:text-gray-400">
-                QueryForge usa la sintassi di <strong>MySQL 8</strong>: puoi scrivere le query come nei corsi. Il database però gira nel tuo browser grazie a <strong>SQLite</strong>, che traduce automaticamente i comandi MySQL: SELECT, JOIN, subquery, funzioni su date e stringhe, CREATE e ALTER TABLE funzionano come in MySQL. Restano escluse alcune funzioni avanzate come variabili, procedure e trigger.
+                Sì. Non ci sono account, abbonamenti o limiti di query: apri il playground e inizi. QueryForge non ha un server da mantenere, ed è anche per questo che può essere gratuito per tutti.
               </p>
             </div>
           </details>
 
-          <details class="group bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+          <details class="group bg-gray-50 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
+            <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
+              <span class="font-medium text-gray-900 dark:text-gray-100">Perché usa SQLite e non MySQL?</span>
+              <ChevronDownIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-400">
+                Per esigenze tecniche: SQLite può girare direttamente nel browser, mentre MySQL ha bisogno di un server. Tu però scrivi le query con la sintassi di <strong>MySQL 8</strong>, che QueryForge traduce automaticamente: SELECT, JOIN, subquery, funzioni su date e stringhe, CREATE e ALTER TABLE funzionano come in MySQL. Mancano solo alcune funzioni avanzate, come variabili, procedure e trigger.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-gray-50 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
+            <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
+              <span class="font-medium text-gray-900 dark:text-gray-100">QueryForge è adatto ai principianti?</span>
+              <ChevronDownIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-400">
+                Sì. Il database è già pronto e gli esercizi partono da zero: ognuno ha la spiegazione del concetto, un suggerimento e la soluzione. Non devi configurare nulla.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-gray-50 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
             <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
               <span class="font-medium text-gray-900 dark:text-gray-100">Dove vengono salvati i miei dati?</span>
               <ChevronDownIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-open:rotate-180" />
@@ -326,26 +429,26 @@
             </div>
           </details>
 
-          <details class="group bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+          <details class="group bg-gray-50 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
+            <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
+              <span class="font-medium text-gray-900 dark:text-gray-100">Posso usarlo con i miei studenti?</span>
+              <ChevronDownIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-400">
+                Certo. Non servono account né installazioni: basta condividere il link e ognuno lavora nel proprio browser, con la propria copia del database.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-gray-50 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
             <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
               <span class="font-medium text-gray-900 dark:text-gray-100">Posso usarlo sul mio computer?</span>
               <ChevronDownIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-open:rotate-180" />
             </summary>
             <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-700">
               <p class="text-gray-600 dark:text-gray-400">
-                Sì. QueryForge è open source (licenza MIT): scarica il codice, esegui <code>npm install</code> e <code>npm run dev</code> e si apre nel browser. Non serve installare MySQL.
-              </p>
-            </div>
-          </details>
-
-          <details class="group bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
-            <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
-              <span class="font-medium text-gray-900 dark:text-gray-100">QueryForge è adatto ai principianti?</span>
-              <ChevronDownIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-open:rotate-180" />
-            </summary>
-            <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-700">
-              <p class="text-gray-600 dark:text-gray-400">
-                Assolutamente sì! QueryForge è pensato come strumento di pratica per i corsi SQL. Troverai un database esempio già pronto per iniziare subito a fare esperimenti senza dover configurare nulla.
+                Sì. QueryForge è open source (licenza MIT): scarica il codice da <a href="https://github.com/tuttofaredigitale/queryforge" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">GitHub</a>, esegui <code>npm install</code> e <code>npm run dev</code> e si apre nel browser. Non serve installare MySQL.
               </p>
             </div>
           </details>
@@ -354,32 +457,20 @@
       </div>
     </section>
 
-    <!-- Sezione AF Cloud Academy -->
-    <section class="py-16 bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500">
+    <section class="py-20 bg-gray-50 dark:bg-gray-900">
       <div class="container mx-auto px-6">
-        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 text-center">
-          <div class="flex justify-center mb-4">
-            <div class="bg-white/20 p-4 rounded-full">
-              <CloudIcon class="h-12 w-12 text-white" />
-            </div>
-          </div>
-          <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
-            Dall'autore di QueryForge
+        <div class="max-w-4xl mx-auto rounded-3xl bg-gradient-to-r from-indigo-600 to-indigo-800 px-6 py-12 md:p-14 text-center shadow-xl">
+          <h2 class="text-3xl md:text-4xl font-bold text-white">
+            La pratica rende perfetti
           </h2>
-          <p class="text-white/90 text-lg mb-6 max-w-2xl mx-auto">
-            Hai imparato SQL? Porta le tue competenze nel Cloud! Sto preparando corsi completi per le <strong>certificazioni AWS</strong>. Inizia il tuo percorso verso il cloud computing.
+          <p class="mt-4 text-lg text-indigo-100 max-w-2xl mx-auto">
+            Il database ti aspetta: apri il playground e scrivi la tua prima query. È gratis e non devi registrarti.
           </p>
-          <a 
-            href="https://alessioferrari.net/academy/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="inline-flex items-center px-8 py-4 bg-white text-orange-600 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition font-semibold"
-          >
-            <span>Scopri AF Cloud Academy</span>
-            <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
+          <RouterLink
+            to="/playground"
+            class="mt-8 inline-block px-8 py-4 bg-white text-indigo-700 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition font-semibold">
+            Apri il Playground
+          </RouterLink>
         </div>
       </div>
     </section>
@@ -392,28 +483,81 @@ import { RouterLink } from 'vue-router';
 import { useMeta } from '@/composables/useMeta.js';
 
 import {
-  TerminalIcon, TableIcon, CheckIcon, XIcon, MenuIcon,
+  CheckIcon, XIcon, MenuIcon, ArrowDownIcon, ChevronDownIcon,
   LightningBoltIcon, CodeIcon, ChartBarIcon,
-  AcademicCapIcon, ChartPieIcon, BriefcaseIcon,
-  ChevronDownIcon, CloudIcon 
+  AcademicCapIcon, BookOpenIcon, UserGroupIcon,
+  DatabaseIcon, ChatAltIcon, ShareIcon, ShieldCheckIcon, DownloadIcon,
+  GlobeIcon, LockClosedIcon
 } from '@heroicons/vue/outline';
 
-// Importa l'immagine
+// Importa le immagini
 import heroImage from '@/assets/images/hero-queryforge-nano.png';
+import playgroundImage from '@/assets/images/playground.webp';
 import LogoQueryForge from '@/assets/images/logoQueryForge.svg';
 
-// Setup Meta e SEO 
+// Setup Meta e SEO
 const baseUrl = import.meta.env.PROD
   ? 'https://queryforge.io'
-  : window.location.origin; 
+  : window.location.origin;
 
-const socialImageUrl = `${baseUrl}/assets/queryforge-social-preview.jpg`;
+// L'immagine per l'anteprima sui social è in public/, così ha un indirizzo fisso
+const socialImageUrl = `${baseUrl}/social-preview.png`;
 
 useMeta({
-  title: 'QueryForge - Il Playground SQL per la Pratica Reale',
-  description: 'Smetti di studiare solo la teoria. Con QueryForge hai un ambiente SQL personale nel tuo browser per fare pratica, sperimentare senza paura e imparare dai tuoi errori. Gratis e senza registrazione.',
+  title: 'QueryForge - Il playground SQL gratuito nel browser',
+  description: 'Fai pratica con SQL gratis nel browser: database di esempio pronto, 31 esercizi guidati e sintassi MySQL. Niente da installare, nessuna registrazione.',
   image: socialImageUrl,
 });
+
+const features = [
+  {
+    icon: DatabaseIcon,
+    title: 'Un database pronto all\'uso',
+    text: 'Un piccolo e-commerce con clienti, prodotti, categorie e ordini: dati realistici su cui provare subito ogni query.'
+  },
+  {
+    icon: AcademicCapIcon,
+    title: '31 esercizi guidati',
+    text: 'Sei capitoli, da SELECT e WHERE fino a JOIN e subquery. Ogni esercizio ha la spiegazione del concetto, un suggerimento e la soluzione.'
+  },
+  {
+    icon: ChatAltIcon,
+    title: 'Errori spiegati in italiano',
+    text: 'Se la query non funziona, il messaggio ti dice cosa correggere: una colonna che non esiste, un valore duplicato, una subquery che restituisce troppe colonne.'
+  },
+  {
+    icon: ShareIcon,
+    title: 'Lo schema a colpo d\'occhio',
+    text: 'Le tabelle e le loro relazioni in un diagramma: capisci come sono collegati i dati prima di scrivere una JOIN.'
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: 'Sbagliare non costa niente',
+    text: 'Prima di comandi come DROP TABLE o di un DELETE senza WHERE ti chiede conferma. E con Reset Database torni ai dati di partenza.'
+  },
+  {
+    icon: DownloadIcon,
+    title: 'Cronologia ed esportazione',
+    text: 'Ritrovi le query già eseguite per rilanciarle e scarichi i risultati in CSV, JSON o Excel.'
+  }
+];
+
+const supported = [
+  'SELECT con WHERE, ORDER BY e LIMIT',
+  'JOIN, subquery, UNION e CTE',
+  'GROUP BY, HAVING e funzioni di aggregazione',
+  'Funzioni su testi, numeri e date (CONCAT, ROUND, DATE_FORMAT…)',
+  'INSERT, UPDATE e DELETE',
+  'CREATE e ALTER TABLE, con AUTO_INCREMENT, ENUM e chiavi esterne'
+];
+
+const unsupported = [
+  'Variabili (@nome)',
+  'Stored procedure, funzioni, trigger ed eventi',
+  'Utenti e permessi (CREATE USER, GRANT)',
+  'Lettura e scrittura di file (LOAD DATA, INTO OUTFILE)',
+  'information_schema, FULLTEXT e WITH ROLLUP'
+];
 
 // Stato reattivo
 const mobileMenuOpen = ref(false);
@@ -421,6 +565,11 @@ const mobileMenuOpen = ref(false);
 // Chiude il menu mobile
 const closeMobileMenu = () => {
   mobileMenuOpen.value = false;
+};
+
+// Porta alla sezione "Come funziona" (il margine in alto lascia spazio alla barra fissa)
+const scrollToHowItWorks = () => {
+  document.getElementById('come-funziona')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 </script>
 
