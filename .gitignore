@@ -1,0 +1,34 @@
+# Dipendenze
+node_modules/
+
+# Build
+dist/
+
+# Variabili d'ambiente (i file .env.example restano nel repo)
+.env
+.env.*
+*.env*
+!.env.example
+!**/.env.example
+
+# Log
+*.log
+logs/
+
+# Backup, dump ed export del database: contengono dati degli utenti
+backups/
+**/backups/
+*.sql.gz
+pscale_dump_*/
+*.dump
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

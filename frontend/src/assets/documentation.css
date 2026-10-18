@@ -1,0 +1,201 @@
+/* Stile per il pulsante fluttuante */
+.help-floating-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #2962ff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 998;
+    transition: all 0.3s ease;
+  }
+  
+  .help-floating-button:hover {
+    background-color: #1e4ec7;
+    transform: scale(1.05);
+  }
+  
+  .help-floating-button i {
+    font-size: 24px;
+  }
+  
+  /* Stile per il pannello laterale */
+  .documentation-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Inizialmente fuori dallo schermo */
+    width: 400px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .documentation-sidebar.open {
+    right: 0;
+  }
+  
+  .documentation-header {
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .documentation-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .documentation-nav {
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-y: auto;
+  }
+  
+  .documentation-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .documentation-nav li {
+    padding: 0;
+  }
+  
+  .doc-nav-item {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .doc-nav-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .doc-nav-item.active {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2962ff;
+    font-weight: 500;
+  }
+  
+  .documentation-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .doc-section {
+    display: none;
+  }
+  
+  .doc-section.active {
+    display: block;
+  }
+  
+  /* Overlay per oscurare lo sfondo quando il pannello è aperto */
+  .documentation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 997;
+    display: none;
+  }
+  
+  .documentation-overlay.open {
+    display: block;
+  }
+
+  .section-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 20px 0 15px 0;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+  }
+  
+  .subsection-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 15px 0 10px 0;
+    color: #444;
+  }
+  
+  .error-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #d32f2f;
+  }
+  
+  .code-example {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: monospace;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  
+  .code-inline {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 2px 4px;
+    font-family: monospace;
+  }
+  
+  .error-box {
+    border-left: 4px solid #f44336;
+    background-color: #ffebee;
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .footer {
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-size: 0.9em;
+    color: #777;
+  }
+  
+  
+  /* Stile responsive per schermi più piccoli */
+  @media (max-width: 600px) {
+    .documentation-sidebar {
+      width: 100%;
+      right: -100%;
+    }
+  }
+
+  

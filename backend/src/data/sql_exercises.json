@@ -1,0 +1,283 @@
+[
+    {
+    "chapter_id": 1,
+    "chapter_title": "Fondamenti: SELECT e WHERE",
+    "lessons": [
+        {
+        "id": 101,
+        "title": "Il comando SELECT (Base)",
+        "concept": "SELECT è usato per selezionare dati da un database. I dati restituiti sono memorizzati in una tabella risultati.",
+        "description": "Vogliamo vedere tutti i clienti registrati. Scrivi una query per recuperare tutte le colonne dalla tabella 'clienti'.",
+        "hint": "Usa la sintassi SELECT * FROM [nome_tabella];",
+        "solution": "SELECT * FROM clienti;"
+        },
+        {
+        "id": 102,
+        "title": "SELECT (Colonne specifiche)",
+        "concept": "È possibile selezionare specifiche colonne indicandone il nome.",
+        "description": "Recupera solo il 'nome', il 'cognome' e l' 'email' di tutti i clienti.",
+        "hint": "Usa la sintassi SELECT colonna1, colonna2 FROM [nome_tabella];",
+        "solution": "SELECT nome, cognome, email FROM clienti;"
+        },{
+        "id": 103,
+        "title": "La parola chiave DISTINCT",
+        "concept": "DISTINCT viene usato per restituire solo valori unici (diversi).",
+        "description": "Vogliamo sapere quali sono gli stati possibili per un ordine. Seleziona tutti i valori unici dalla colonna 'stato' nella tabella 'ordini'.",
+        "solution": "SELECT DISTINCT stato FROM ordini;"
+        },
+        {
+        "id": 104,
+        "title": "Clausola WHERE (Filtro)",
+        "concept": "WHERE filtra le righe prodotte dal FROM in base a condizioni booleane (confronti, operatori logici, pattern). È valutata prima di GROUP BY/HAVING e ORDER BY.",
+        "description": "Trova tutti gli ordini che sono nello stato 'spedito'.",
+        "hint": "Ricorda di usare gli apici singoli per i valori testuali (es. WHERE stato = 'valore').",
+        "solution": "SELECT * FROM ordini WHERE stato = 'spedito';"
+        }
+    ]
+    },
+    {
+        "chapter_id": 2,
+        "chapter_title": "Operatori e Ordinamento",
+        "lessons": [
+            {
+            "id": 201,
+            "title": "Operatori Relazionali (>)",
+            "concept": "Gli operatori relazionali confrontano valori numerici o testuali.",
+            "hint": "Cerca i prodotti con prezzo maggiore di 50.00 usando WHERE.",
+            "description": "Trova tutti i prodotti il cui prezzo è maggiore di 50.00.",
+            "solution": "SELECT * FROM prodotti WHERE prezzo > 50.00;"
+            },
+            {
+            "id": 202,
+            "title": "Operatore Logico (AND)",
+            "concept": "Gli operatori logici permettono di combinare più condizioni.",
+            "hint": "Usa AND per filtrare sia la categoria sia il prezzo.",
+            "description": "Trova i prodotti nella categoria con id 2 E che costano meno di 20.00. (Assicurati che esistano dati di test che soddisfino la condizione)",
+            "solution": "SELECT * FROM prodotti WHERE categoria_id = 2 AND prezzo < 20.00;"
+            },
+            {
+            "id": 203,
+            "title": "Clausola ORDER BY (DESC)",
+            "concept": "ORDER BY ordina i risultati in ordine crescente (ASC) o decrescente (DESC).",
+            "hint": "Ordina la colonna prezzo in ordine decrescente.",
+            "description": "Elenca tutti i prodotti ordinati dal più costoso al meno costoso.",
+            "solution": "SELECT * FROM prodotti ORDER BY prezzo DESC;"
+            }
+    ]
+    },
+    {
+        "chapter_id": 3,
+        "chapter_title": "Filtri e Pattern",
+        "lessons": [
+            {
+                "id": 301,
+                "title": "Operatore BETWEEN",
+                "concept": "BETWEEN permette di filtrare un range di valori.",
+                "description": "Trova tutti i prodotti il cui prezzo è compreso tra 10.00 e 30.00.",
+                "hint": "Usa la sintassi WHERE prezzo BETWEEN valore1 AND valore2.",
+                "solution": "SELECT * FROM prodotti WHERE prezzo BETWEEN 10.00 AND 30.00;"
+            },
+            {
+                "id": 302,
+                "title": "Operatore IN",
+                "concept": "IN permette di filtrare una colonna in base ad un insieme di valori.",
+                "description": "Mostra tutti gli ordini che hanno stato 'nuovo' o 'in elaborazione'.",
+                "solution": "SELECT * FROM ordini WHERE stato IN ('nuovo','in elaborazione');"
+            },
+            {
+                "id": 303,
+                "title": "Operatore LIKE",
+                "concept": "LIKE è usato per cercare pattern all’interno di stringhe.",
+                "description": "Trova tutti i clienti il cui cognome inizia con la lettera 'B'.",
+                "hint": "Usa il carattere jolly %, ad esempio 'B%'.",
+                "solution": "SELECT * FROM clienti WHERE cognome LIKE 'B%';"
+            },
+            {
+                "id": 304,
+                "title": "BETWEEN (Date)",
+                "concept": "BETWEEN si può usare anche con le date, non solo con i numeri.",
+                "hint": "Usa formato 'YYYY-MM-DD' per i valori delle date.",
+                "description": "Trova tutti i clienti registrati tra il 1° gennaio 2023 e il 31 dicembre 2023.",
+                "solution": "SELECT * FROM clienti WHERE data_registrazione BETWEEN '2023-01-01' AND '2023-12-31';"
+            },
+            {
+                "id": 305,
+                "title": "IN (Categorie)",
+                "concept": "IN può contenere più valori numerici o testuali.",
+                "hint": "Metti i valori dentro parentesi tonde separati da virgole.",
+                "description": "Trova tutti i prodotti che appartengono alle categorie con id 1, 2 o 5.",
+                "solution": "SELECT * FROM prodotti WHERE categoria_id IN (1,2,5);"
+            },
+            {
+                "id": 306,
+                "title": "LIKE (Email)",
+                "concept": "LIKE con % permette di trovare pattern anche all’interno della stringa.",
+                "hint": "Cerca tutto ciò che termina con '@gmail.com'.",
+                "description": "Trova tutti i clienti che hanno un indirizzo email su Gmail.",
+                "solution": "SELECT * FROM clienti WHERE email LIKE '%@gmail.com';"
+            }
+        ]
+    },
+    {
+        "chapter_id": 4,
+        "chapter_title": "Funzioni di Aggregazione",
+        "lessons": [
+            {
+                "id": 401,
+                "title": "COUNT",
+                "concept": "COUNT restituisce il numero di righe trovate.",
+                "hint": "Conta tutte le righe della tabella ordini.",
+                "description": "Conta quanti ordini sono presenti nella tabella 'ordini'.",
+                "solution": "SELECT COUNT(*) FROM ordini;"
+            },
+            {
+                "id": 402,
+                "title": "AVG",
+                "concept": "AVG calcola la media di una colonna numerica.",
+                "hint": "Applica AVG alla colonna prezzo della tabella prodotti.",
+                "description": "Calcola il prezzo medio dei prodotti.",
+                "solution": "SELECT AVG(prezzo) FROM prodotti;"
+            },
+            {
+                "id": 403,
+                "title": "SUM con GROUP BY",
+                "concept": "SUM calcola la somma, con GROUP BY si divide per gruppi.",
+                "hint": "Raggruppa per stato e calcola la somma del totale.",
+                "description": "Trova il totale degli ordini raggruppati per stato.",
+                "solution": "SELECT stato, SUM(totale) FROM ordini GROUP BY stato;"
+            },
+            {
+                "id": 404,
+                "title": "MIN e MAX",
+                "concept": "MIN e MAX servono a trovare rispettivamente il valore minimo e massimo di una colonna.",
+                "hint": "Puoi rinominare le colonne con AS per renderle leggibili.",
+                "description": "Trova il prezzo più basso e quello più alto tra i prodotti.",
+                "solution": "SELECT MIN(prezzo) AS prezzo_min, MAX(prezzo) AS prezzo_max FROM prodotti;"
+            },
+            {
+                "id": 405,
+                "title": "COUNT DISTINCT",
+                "concept": "DISTINCT può essere combinato con COUNT per eliminare i duplicati.",
+                "hint": "Conta solo i clienti unici nella colonna cliente_id.",
+                "description": "Conta quanti clienti unici hanno effettuato ordini.",
+                "solution": "SELECT COUNT(DISTINCT cliente_id) FROM ordini;"
+            },
+            {
+                "id": 406,
+                "title": "AVG con GROUP BY",
+                "concept": "AVG con GROUP BY permette di calcolare medie per gruppi di dati.",
+                "hint": "Raggruppa per categoria_id.",
+                "description": "Trova il prezzo medio dei prodotti per ogni categoria.",
+                "solution": "SELECT categoria_id, AVG(prezzo) FROM prodotti GROUP BY categoria_id;"
+            }
+        ]
+    },
+    {
+        "chapter_id": 5,
+        "chapter_title": "JOIN e Relazioni",
+        "lessons": [
+            {
+                "id": 501,
+                "title": "INNER JOIN",
+                "concept": "JOIN collega due tabelle tramite una chiave comune.",
+                "description": "Elenca tutti gli ordini con il nome e cognome del cliente.",
+                "hint": "Collega ordini e clienti sulla chiave cliente_id.",
+                "solution": "SELECT o.id, c.nome, c.cognome, o.totale FROM ordini o INNER JOIN clienti c ON o.cliente_id = c.id;"
+            },
+            {
+                "id": 502,
+                "title": "JOIN con più tabelle",
+                "concept": "JOIN con più tabelle concatena più JOIN collegando ciascuna coppia tramite ON sulle chiavi (PK/FK). Usa alias per disambiguare; ogni JOIN influenza righe e colonne restituite.",
+                "description": "Elenca i dettagli degli ordini mostrando anche il nome del prodotto.",
+                "hint": "Collega dettagli_ordine → ordini → prodotti.",
+                "solution": "SELECT o.id AS ordine_id, p.nome AS prodotto, d.quantita, d.prezzo_unitario FROM dettagli_ordine d INNER JOIN ordini o ON d.ordine_id = o.id INNER JOIN prodotti p ON d.prodotto_id = p.id;"
+            },
+            {
+                "id": 503,
+                "title": "LEFT JOIN",
+                "concept": "LEFT JOIN restituisce tutte le righe della tabella a sinistra e le corrispondenze della tabella a destra; se non c’è match, i campi della destra risultano NULL.",
+                "description": "Trova tutti i clienti e mostra eventuali ordini associati (anche se non ne hanno).",
+                "hint": "Mostra tutti i clienti, anche quelli senza ordini.",
+                "solution": "SELECT c.nome, c.cognome, o.id AS ordine_id FROM clienti c LEFT JOIN ordini o ON c.id = o.cliente_id;"
+            },
+            {
+                "id": 504,
+                "title": "JOIN con Alias",
+                "concept": "Gli alias rendono le query più brevi e leggibili.",
+                "hint": "Assegna ad esempio 'o' per ordini e 'c' per clienti.",
+                "description": "Elenca gli ordini mostrando id ordine, totale e il nome del cliente, usando alias brevi per le tabelle.",
+                "solution": "SELECT o.id, o.totale, c.nome FROM ordini o INNER JOIN clienti c ON o.cliente_id = c.id;"
+            },
+            {
+                "id": 505,
+                "title": "JOIN + WHERE",
+                "concept": "JOIN può essere combinato con WHERE per filtrare i risultati.",
+                "hint": "Aggiungi la condizione sullo stato 'spedito'.",
+                "description": "Trova tutti gli ordini 'spedito' con il nome del cliente.",
+                "solution": "SELECT o.id, o.stato, c.nome, c.cognome FROM ordini o INNER JOIN clienti c ON o.cliente_id = c.id WHERE o.stato = 'spedito';"
+            },
+            {
+                "id": 506,
+                "title": "JOIN con 3 tabelle (Variante)",
+                "concept": "È possibile collegare più di due tabelle usando chiavi relazionali.",
+                "hint": "Collega clienti → ordini → dettagli_ordine → prodotti.",
+                "description": "Mostra il nome del cliente, il prodotto acquistato e la quantità ordinata.",
+                "solution": "SELECT c.nome, p.nome AS prodotto, d.quantita FROM clienti c INNER JOIN ordini o ON c.id = o.cliente_id INNER JOIN dettagli_ordine d ON o.id = d.ordine_id INNER JOIN prodotti p ON d.prodotto_id = p.id;"
+            }
+        ]
+    },
+    {
+        "chapter_id": 6,
+        "chapter_title": "Subquery e Avanzato",
+        "lessons": [
+            {
+                "id": 601,
+                "title": "Subquery in WHERE",
+                "concept": "Una subquery può essere usata come condizione per filtrare i risultati.",
+                "hint": "Confronta il prezzo con la media dei prezzi calcolata in una subquery.",
+                "description": "Trova tutti i prodotti che costano più della media dei prezzi dei prodotti.",
+                "solution": "SELECT * FROM prodotti WHERE prezzo > (SELECT AVG(prezzo) FROM prodotti);"
+            },
+            {
+                "id": 602,
+                "title": "EXISTS",
+                "concept": "EXISTS verifica se una subquery restituisce almeno una riga.",
+                "hint": "Cerca clienti per cui esiste almeno un ordine nella tabella ordini.",
+                "description": "Trova tutti i clienti che hanno effettuato almeno un ordine.",
+                "solution": "SELECT * FROM clienti c WHERE EXISTS (SELECT 1 FROM ordini o WHERE o.cliente_id = c.id);"
+            },
+            {
+                "id": 603,
+                "title": "ALL",
+                "concept": "ALL confronta un valore con tutti quelli restituiti da una subquery.",
+                "hint": "Trova prodotti più cari di tutti quelli di categoria 1.",
+                "description": "Trova i prodotti che hanno un prezzo maggiore di tutti i prezzi nella categoria 1.",
+                "solution": "SELECT * FROM prodotti WHERE prezzo > ALL (SELECT prezzo FROM prodotti WHERE categoria_id = 1);"
+            },
+            {
+                "id": 604,
+                "title": "Subquery con IN",
+                "concept": "Una subquery dentro IN permette di confrontare una lista di valori generata dinamicamente.",
+                "hint": "Pensa: seleziona clienti dove l'id è tra quelli che hanno ordini 'consegnato'.",
+                "description": "Trova i clienti che hanno fatto almeno un ordine con stato 'consegnato'.",
+                "solution": "SELECT * FROM clienti WHERE id IN (SELECT cliente_id FROM ordini WHERE stato = 'consegnato');"
+            },
+            {
+                "id": 605,
+                "title": "Subquery in SELECT",
+                "concept": "Una subquery può restituire un valore costante che appare in ogni riga.",
+                "hint": "La subquery calcola la media prezzi e la aggiungi come colonna.",
+                "description": "Mostra tutti i prodotti insieme al prezzo medio di tutti i prodotti.",
+                "solution": "SELECT nome, prezzo, (SELECT AVG(prezzo) FROM prodotti) AS prezzo_medio FROM prodotti;"
+            },
+            {
+                "id": 606,
+                "title": "Subquery Correlata",
+                "concept": "Una subquery correlata dipende da una colonna della query esterna.",
+                "hint": "Usa p.categoria_id dentro la subquery.",
+                "description": "Trova i prodotti che hanno un prezzo superiore al prezzo medio della loro categoria.",
+                "solution": "SELECT * FROM prodotti p WHERE prezzo > (SELECT AVG(prezzo) FROM prodotti WHERE categoria_id = p.categoria_id);"
+            }
+    ]
+  }
+]
