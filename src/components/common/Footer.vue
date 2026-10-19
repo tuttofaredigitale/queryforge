@@ -14,7 +14,8 @@
           </p>
           <p class="mt-4 text-sm text-gray-300">
             © {{ currentYear }} Alessio Ferrari | P.IVA 05180750233<br>
-            Un progetto di <a href="https://alessioferrari.net/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-300 hover:text-white transition-colors">Alessio Ferrari</a>.
+            Un progetto di <a href="https://alessioferrari.net/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-300 hover:text-white transition-colors">Alessio Ferrari</a>.<br>
+            Il codice è su <a href="https://github.com/tuttofaredigitale/queryforge" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-300 hover:text-white transition-colors">GitHub</a>.
           </p>
         </div>
 

@@ -79,10 +79,10 @@
             <span class="text-3xl">🎉</span>
             <div>
               <h3 class="text-white font-bold text-lg md:text-xl">
-                QueryForge ora è gratuito per tutti e open source!
+                QueryForge ora è gratuito per tutti!
               </h3>
               <p class="text-emerald-100 text-sm md:text-base">
-                Niente più account né limiti di query: il database gira direttamente nel tuo browser e il codice è libero, con licenza MIT.
+                Niente più account né limiti di query: il database gira direttamente nel tuo browser.
               </p>
             </div>
           </div>
@@ -318,14 +318,11 @@
     <section class="py-20 bg-gray-50 dark:bg-gray-900">
       <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
-          Gratuito e open source
+          Gratis, senza sorprese
         </h2>
         <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
           QueryForge è gratis per tutti: niente account, niente abbonamenti, nessun limite di query.
         </p>
-        <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          Il codice è pubblico su <a href="https://github.com/tuttofaredigitale/queryforge" target="_blank" rel="noopener noreferrer" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">GitHub</a>, con licenza MIT.
-        </div>
       </div>
       <div class="container mx-auto px-6 mt-10 max-w-lg">
         <div class="relative bg-indigo-50 dark:bg-indigo-900/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition border-2 border-indigo-600">
@@ -358,7 +355,7 @@
             </li>
             <li class="flex items-start">
               <CheckIcon class="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-1"/>
-              <span>Codice open source con licenza MIT</span>
+              <span>Niente da installare: funziona nel browser</span>
             </li>
           </ul>
 
@@ -519,7 +516,7 @@ import LogoQueryForge from '@/assets/images/logoQueryForge.svg';
 
 // Setup Meta e SEO
 const baseUrl = import.meta.env.PROD
-  ? 'https://queryforge.io'
+  ? 'https://www.queryforge.io'
   : window.location.origin;
 
 // L'immagine per l'anteprima sui social è in public/, così ha un indirizzo fisso
