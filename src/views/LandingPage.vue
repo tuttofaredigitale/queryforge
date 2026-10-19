@@ -472,6 +472,28 @@
             Apri il Playground
           </RouterLink>
         </div>
+
+        <!-- Iscrizione alle novità: il modulo è ospitato da Brevo, sul sito c'è solo il link -->
+        <div class="max-w-4xl mx-auto mt-8 bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+          <div class="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
+            <MailIcon class="h-7 w-7 text-indigo-600 dark:text-indigo-300" />
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Resta aggiornato</h3>
+            <p class="mt-1 text-gray-600 dark:text-gray-400">
+              Ti scrivo solo quando aggiungo nuovi esercizi o novità a QueryForge, poche volte l'anno.
+            </p>
+          </div>
+          <a
+            :href="newsletterUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-shrink-0 inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition font-semibold whitespace-nowrap"
+          >
+            Iscriviti alle novità
+            <ExternalLinkIcon class="ml-2 h-4 w-4" />
+          </a>
+        </div>
       </div>
     </section>
   </div>
@@ -487,7 +509,7 @@ import {
   LightningBoltIcon, CodeIcon, ChartBarIcon,
   AcademicCapIcon, BookOpenIcon, UserGroupIcon,
   DatabaseIcon, ChatAltIcon, ShareIcon, ShieldCheckIcon, DownloadIcon,
-  GlobeIcon, LockClosedIcon
+  GlobeIcon, LockClosedIcon, MailIcon, ExternalLinkIcon
 } from '@heroicons/vue/outline';
 
 // Importa le immagini
@@ -508,6 +530,9 @@ useMeta({
   description: 'Fai pratica con SQL gratis nel browser: database di esempio pronto, 31 esercizi guidati e sintassi MySQL. Niente da installare, nessuna registrazione.',
   image: socialImageUrl,
 });
+
+// Modulo di iscrizione alle novità, ospitato da Brevo
+const newsletterUrl = 'https://0efb3274.sibforms.com/serve/MUIFAKla9UyqE1I4DlecrTGw_xA0U8kelUD4_nOi-zMYiUFZvAEuh6hMvrwJmE2erJD6Nea6AOOvIRHX0u41iNex_3tAsrEzEgoA2gXg0deVzMIZqDOZ6I9JTuGOdZe9pWmT-LTjGdnUPrQ1R05h4gO6ptTsiSShpvZCGoefVTom7Te3kZgRuFddIzF32VWovLnA2GHRLu8ZpX_YhQ==';
 
 const features = [
   {
