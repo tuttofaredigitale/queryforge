@@ -73,7 +73,7 @@ Su Vercel il file `vercel.json` gestisce i link diretti alle pagine (es. `/playg
 - `VITE_GA_ID`: Google Analytics 4;
 - `VITE_IUBENDA_WIDGET_ID`: banner cookie di iubenda.
 
-Senza queste variabili il sito non carica script di terze parti.
+Senza queste variabili il sito non carica script di terze parti. Se sono impostate tutte e due, Google Analytics parte solo dopo che il visitatore ha accettato la "Misurazione" nel banner: prima non viene caricato e non invia nulla.
 
 ## Versione precedente
 

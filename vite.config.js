@@ -16,7 +16,8 @@ function analyticsTags(env) {
       const tags = [];
       const iubenda = env.VITE_IUBENDA_WIDGET_ID;
       const ga = env.VITE_GA_ID;
-      if (iubenda && /^[A-Za-z0-9-]+$/.test(iubenda)) {
+      const hasIubenda = Boolean(iubenda && /^[A-Za-z0-9-]+$/.test(iubenda));
+      if (hasIubenda) {
         tags.push({
           tag: 'script',
           attrs: { type: 'text/javascript', src: `https://embeds.iubenda.com/widgets/${iubenda}.js` },
@@ -24,10 +25,22 @@ function analyticsTags(env) {
         });
       }
       if (ga && /^G-[A-Z0-9]+$/.test(ga)) {
-        tags.push({ tag: 'script', attrs: { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${ga}` }, injectTo: 'head' });
+        const gtagSrc = `https://www.googletagmanager.com/gtag/js?id=${ga}`;
+        const gtagConfig = `window.dataLayer = window.dataLayer || [];\nfunction gtag() { dataLayer.push(arguments); }\ngtag('js', new Date());\ngtag('config', '${ga}');`;
+        // Con il banner di iubenda, Analytics resta spento finché il visitatore non accetta
+        // la "Misurazione" (finalità 4): prima non viene caricato e non manda nulla a Google.
+        const consent = { type: 'text/plain', 'data-iub-purposes': '4' };
         tags.push({
           tag: 'script',
-          children: `window.dataLayer = window.dataLayer || [];\nfunction gtag() { dataLayer.push(arguments); }\ngtag('js', new Date());\ngtag('config', '${ga}');`,
+          attrs: hasIubenda
+            ? { ...consent, class: '_iub_cs_activate', async: true, 'data-suppressedsrc': gtagSrc }
+            : { async: true, src: gtagSrc },
+          injectTo: 'head'
+        });
+        tags.push({
+          tag: 'script',
+          attrs: hasIubenda ? { ...consent, class: '_iub_cs_activate-inline' } : {},
+          children: gtagConfig,
           injectTo: 'head'
         });
       }
