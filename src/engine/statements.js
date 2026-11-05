@@ -6,6 +6,7 @@ import { isSignificant, nextSig, matchParen, splitTopLevel, findTopLevelWord } f
 import { emit, emitSelect, createContext, quoteIdent, identName } from './translator.js';
 import { translateCreateTable, translateCreateIndex, translateDropIndex, translateAlterTable } from './ddl.js';
 import { describeColumns, listTables, findTable, tableSql, showIndexes } from './catalog.js';
+import { syncRoundingTriggers } from './numeric.js';
 import { CompatError, MSG } from './errors.js';
 
 const JOIN_WORDS = new Set(['JOIN', 'INNER', 'CROSS', 'STRAIGHT_JOIN', 'LEFT', 'RIGHT', 'NATURAL', 'OUTER', 'FULL']);
@@ -630,10 +631,15 @@ function truncatePlan(tokens, s, w) {
 function renamePlan(tokens, s) {
   // RENAME TABLE a TO b, c TO d
   const start = s[1] !== undefined && tokens[s[1]].upper === 'TABLE' ? s[2] : s[1];
-  const steps = splitTopLevel(tokens, start, tokens.length).map(([a, b]) => {
+  const steps = splitTopLevel(tokens, start, tokens.length).flatMap(([a, b]) => {
     const names = tokens.slice(a, b).filter((t) => (t.type === 'word' && t.upper !== 'TO') || t.type === 'qident');
     if (names.length < 2) throw new CompatError('RENAME TABLE: usa la forma RENAME TABLE vecchio TO nuovo.');
-    return { sql: `ALTER TABLE ${quoteIdent(identName(names[names.length - 2]))} RENAME TO ${quoteIdent(identName(names[names.length - 1]))}`, message: 'Tabella rinominata.' };
+    const to = identName(names[names.length - 1]);
+    return [
+      { sql: `ALTER TABLE ${quoteIdent(identName(names[names.length - 2]))} RENAME TO ${quoteIdent(to)}`, message: 'Tabella rinominata.' },
+      // i trigger di arrotondamento prendono il nome della tabella nuova
+      { run: (rt) => syncRoundingTriggers(rt, to), silent: true }
+    ];
   });
   return plan(steps);
 }

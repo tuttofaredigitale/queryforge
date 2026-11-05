@@ -7,6 +7,7 @@ import { translateStatement } from './statements.js';
 import { registerMysqlFunctions } from './functions.js';
 import { getStructure } from './catalog.js';
 import { CompatError, translateSqliteError } from './errors.js';
+import { upgradeRounding } from './numeric.js';
 
 // Righe massime restituite all'interfaccia per una SELECT
 export const MAX_ROWS = 1000;
@@ -42,6 +43,15 @@ export class Engine {
     this.setupConnection();
     this.rt = this.createRuntime();
     this.savedMarker = this.changeMarker();
+    // Database salvati prima dell'arrotondamento di DECIMAL e INT: si aggiornano
+    // all'apertura e risultano modificati, così il worker li salva
+    if (bytes) {
+      try {
+        upgradeRounding(this.rt);
+      } catch (error) {
+        // se l'aggiornamento non riesce il database resta comunque utilizzabile
+      }
+    }
   }
 
   /**

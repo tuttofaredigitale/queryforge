@@ -43,7 +43,11 @@ Funzionano come in MySQL:
 - `INSERT ... SET`, `INSERT IGNORE`, `ON DUPLICATE KEY UPDATE`, `UPDATE`/`DELETE` con `ORDER BY ... LIMIT` e con `JOIN`;
 - `SHOW TABLES`, `DESCRIBE`, `SHOW CREATE TABLE`, `SHOW INDEX`, transazioni, `SET FOREIGN_KEY_CHECKS`.
 
-Come in MySQL, i confronti tra testi non distinguono maiuscole e minuscole e la divisione restituisce sempre un decimale.
+Come in MySQL, i confronti tra testi non distinguono maiuscole e minuscole e la divisione restituisce sempre un decimale. Anche gli arrotondamenti al salvataggio sono gli stessi:
+- le colonne `DECIMAL(p,s)` tengono `s` decimali (879.989 in una `DECIMAL(10,2)` diventa 879.99);
+- le colonne intere non tengono decimali (37.5 in una `INT` diventa 38).
+
+Lo fanno due trigger interni per tabella (`src/engine/numeric.js`).
 
 Non sono disponibili nel browser:
 

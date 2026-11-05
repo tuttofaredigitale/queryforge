@@ -5,6 +5,7 @@ import { tokenize, isSignificant, nextSig, matchParen, splitTopLevel, findTopLev
 import { emit, emitSelect, sqliteString, quoteIdent, identName, mapCollation, createContext } from './translator.js';
 import { CompatError, MSG } from './errors.js';
 import { findTable, tableSql } from './catalog.js';
+import { syncRoundingTriggers, roundStoredValues } from './numeric.js';
 
 const TEXT_TYPES = new Set(['CHAR', 'VARCHAR', 'TEXT', 'TINYTEXT', 'MEDIUMTEXT', 'LONGTEXT', 'NCHAR', 'NVARCHAR', 'CHARACTER', 'NATIONAL', 'ENUM', 'SET']);
 const NUMERIC_TYPES = new Set(['INT', 'INTEGER', 'TINYINT', 'SMALLINT', 'MEDIUMINT', 'BIGINT', 'DECIMAL', 'DEC', 'NUMERIC', 'FIXED', 'FLOAT', 'DOUBLE', 'REAL', 'BIT', 'BOOL', 'BOOLEAN', 'SERIAL', 'YEAR']);
@@ -429,7 +430,10 @@ export function translateCreateTable(tokens, s) {
         end = close;
       }
     }
-    return [{ sql: `${head} AS ${emitSelect(tokens, start, end, createContext()).trim()}`, message: 'Tabella creata.' }];
+    return [
+      { sql: `${head} AS ${emitSelect(tokens, start, end, createContext()).trim()}`, message: 'Tabella creata.' },
+      { run: (rt) => syncRoundingTriggers(rt, table), silent: true }
+    ];
   }
 
   if (next.text !== '(') throw new CompatError(`Dopo il nome della tabella ${table} servono le colonne tra parentesi.`);
@@ -453,7 +457,10 @@ export function translateCreateTable(tokens, s) {
       columns.push(translateColumnDef(tokens, a, b, { table }));
     }
   }
-  return [{ sql: buildCreateTable(head, table, columns, items, extra), message: 'Tabella creata.', multi: true }];
+  return [
+    { sql: buildCreateTable(head, table, columns, items, extra), message: 'Tabella creata.', multi: true },
+    { run: (rt) => syncRoundingTriggers(rt, table), silent: true }
+  ];
 }
 
 /**
@@ -503,6 +510,7 @@ function createTableLike(rt, table, source, ifNotExists) {
     const indexSql = rewriteIndexSql(idx.sql, `${table}_${idx.name}`, table);
     rt.exec(indexSql);
   }
+  syncRoundingTriggers(rt, table);
   return { affectedRows: 0, message: 'Tabella creata.' };
 }
 
@@ -751,7 +759,8 @@ export function loadModel(rt, table) {
     }
   }
   const indexes = rt.query("SELECT name, sql FROM sqlite_master WHERE type = 'index' AND tbl_name = ? AND sql IS NOT NULL", [found.name]);
-  const triggers = rt.query("SELECT name, sql FROM sqlite_master WHERE type = 'trigger' AND tbl_name = ?", [found.name]);
+  // i trigger di arrotondamento non si copiano: rebuildTable li rigenera dalle colonne nuove
+  const triggers = rt.query("SELECT name, sql FROM sqlite_master WHERE type = 'trigger' AND tbl_name = ? AND name NOT LIKE 'qf!_round!_%' ESCAPE '!'", [found.name]);
   return { table: found.name, columns, constraints, indexes, triggers, addedDefaults: new Map() };
 }
 
@@ -804,6 +813,7 @@ export function alterTable(rt, table, actions) {
   let current = table;
   if (native) {
     for (const action of actions) current = applyNative(rt, current, action);
+    syncRoundingTriggers(rt, current);
     return { affectedRows: 0, message: 'Tabella modificata.' };
   }
 
@@ -930,6 +940,7 @@ export function alterTable(rt, table, actions) {
     if (typeof step === 'string') rt.exec(step);
     else currentName = applyNative(rt, currentName, step);
   }
+  syncRoundingTriggers(rt, currentName);
   return { affectedRows: 0, message: 'Tabella modificata.' };
 }
 
@@ -1012,8 +1023,11 @@ export function rebuildTable(rt, model) {
     }
     rt.exec(`DROP TABLE ${quoteIdent(model.table)}`);
     rt.exec(`ALTER TABLE ${quoteIdent(tmp)} RENAME TO ${quoteIdent(model.table)}`);
+    // prima dei trigger, così ON UPDATE CURRENT_TIMESTAMP non scatta sui dati copiati
+    roundStoredValues(rt, model.table);
     for (const idx of model.indexes) rt.exec(idx.sql);
     for (const trg of model.triggers) rt.exec(trg.sql);
+    syncRoundingTriggers(rt, model.table);
     if (fkWasOn) {
       const problems = rt.query(`SELECT * FROM pragma_foreign_key_check(${sqliteString(model.table)})`);
       if (problems.length) throw new Error('FOREIGN KEY constraint failed');

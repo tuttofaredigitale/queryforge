@@ -373,3 +373,80 @@ describe('salvataggio', () => {
     expect(value('SELECT COUNT(*) FROM dettagli_ordine')).toBe(7);
   });
 });
+
+describe('arrotondamento di DECIMAL e INT come in MySQL', () => {
+  const raw = (sql) => engine.db.exec(sql)[0].values;
+
+  it('un aumento del 10% salva due decimali', () => {
+    expect(run('UPDATE prodotti SET prezzo = prezzo * 1.10 WHERE categoria_id = 1').affectedRows).toBe(2);
+    expect(rows('SELECT id, prezzo FROM prodotti WHERE categoria_id = 1 ORDER BY id')).toEqual([{ id: 1, prezzo: 879.99 }, { id: 2, prezzo: 1429.99 }]);
+    // è il valore salvato, non solo quello mostrato
+    expect(raw('SELECT quote(prezzo) FROM prodotti WHERE id = 1')).toEqual([['879.99']]);
+  });
+
+  it('INSERT arrotonda per eccesso dalla metà, anche i negativi e i testi', () => {
+    expect(run("INSERT INTO prodotti (nome, prezzo, categoria_id) VALUES ('A', 10.555, 1), ('B', -2.345, 1), ('C', '3.14159', 1)").affectedRows).toBe(3);
+    expect(rows("SELECT nome, prezzo FROM prodotti WHERE nome IN ('A', 'B', 'C') ORDER BY nome")).toEqual([
+      { nome: 'A', prezzo: 10.56 }, { nome: 'B', prezzo: -2.35 }, { nome: 'C', prezzo: 3.14 }
+    ]);
+  });
+
+  it('le colonne intere non tengono decimali', () => {
+    run('UPDATE prodotti SET disponibilita = disponibilita * 1.5 WHERE id = 1');
+    expect(value('SELECT disponibilita FROM prodotti WHERE id = 1')).toBe(38);
+    expect(raw('SELECT typeof(disponibilita) FROM prodotti WHERE id = 1')).toEqual([['integer']]);
+  });
+
+  it('DECIMAL senza scala, NUMERIC, FLOAT e DOUBLE(m,d)', () => {
+    run('CREATE TABLE misure (a DECIMAL, b DECIMAL(5,1), c FLOAT, d DOUBLE(6,2), e NUMERIC(8,3))');
+    run('INSERT INTO misure VALUES (1.6, 2.25, 3.14159, 1.234, 0.12345)');
+    expect(rows('SELECT * FROM misure')[0]).toEqual({ a: 2, b: 2.3, c: 3.14159, d: 1.23, e: 0.123 });
+  });
+
+  it('ALTER TABLE e RENAME TABLE: i dati si adattano e i trigger interni seguono la tabella', () => {
+    run('ALTER TABLE prodotti MODIFY prezzo DECIMAL(10,1) NOT NULL');
+    expect(value('SELECT prezzo FROM prodotti WHERE id = 3')).toBe(20);
+    run('ALTER TABLE prodotti RENAME COLUMN prezzo TO prezzo_eur');
+    run('UPDATE prodotti SET prezzo_eur = 1.26 WHERE id = 3');
+    expect(value('SELECT prezzo_eur FROM prodotti WHERE id = 3')).toBe(1.3);
+    run('ALTER TABLE prodotti RENAME TO articoli');
+    run('RENAME TABLE articoli TO merce');
+    run('UPDATE merce SET prezzo_eur = 2.04 WHERE id = 3');
+    expect(value('SELECT prezzo_eur FROM merce WHERE id = 3')).toBe(2);
+    expect(raw("SELECT name FROM sqlite_master WHERE type = 'trigger' AND tbl_name = 'merce' ORDER BY name").map((r) => r[0])).toEqual(['qf_round_ins_merce', 'qf_round_upd_merce']);
+    expect(rows('DESCRIBE merce').find((c) => c.Field === 'prezzo_eur').Type).toBe('decimal(10,1)');
+    expect(rows('SHOW TRIGGERS')).toEqual([]);
+  });
+
+  it('con ON UPDATE CURRENT_TIMESTAMP la data resta quella giusta', () => {
+    run('CREATE TABLE listino (id INT PRIMARY KEY, prezzo DECIMAL(10,2), agg TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)');
+    run("INSERT INTO listino VALUES (1, 1.239, '2020-01-01 00:00:00')");
+    expect(rows('SELECT prezzo, agg FROM listino')[0]).toEqual({ prezzo: 1.24, agg: '2020-01-01 00:00:00' });
+    run("UPDATE listino SET prezzo = 2.555, agg = '2021-01-01 00:00:00'");
+    expect(rows('SELECT prezzo, agg FROM listino')[0]).toEqual({ prezzo: 2.56, agg: '2021-01-01 00:00:00' });
+    run('UPDATE listino SET prezzo = 3.333');
+    const after = rows('SELECT prezzo, agg FROM listino')[0];
+    expect(after.prezzo).toBe(3.33);
+    expect(after.agg).not.toBe('2021-01-01 00:00:00');
+  });
+
+  it('tabelle temporanee e CREATE TABLE ... LIKE', () => {
+    run('CREATE TEMPORARY TABLE carrello (qta INT, prezzo DECIMAL(6,2))');
+    run('INSERT INTO carrello VALUES (2.5, 9.999)');
+    expect(rows('SELECT * FROM carrello')[0]).toEqual({ qta: 3, prezzo: 10 });
+    run('CREATE TABLE prodotti_copia LIKE prodotti');
+    run("INSERT INTO prodotti_copia (nome, prezzo) VALUES ('X', 5.555)");
+    expect(value("SELECT prezzo FROM prodotti_copia WHERE nome = 'X'")).toBe(5.56);
+  });
+
+  it("i database salvati prima della correzione si aggiornano all'apertura", () => {
+    // un database "vecchio": senza trigger e con un prezzo a tre decimali
+    for (const [name] of raw("SELECT name FROM sqlite_master WHERE type = 'trigger' AND name LIKE 'qf_round_%'")) engine.db.run(`DROP TRIGGER "${name}"`);
+    engine.db.run('UPDATE prodotti SET prezzo = 879.989 WHERE id = 1');
+    const reopened = new Engine(SQL, engine.export());
+    expect(reopened.execute('SELECT prezzo FROM prodotti WHERE id = 1').rows[0].prezzo).toBe(879.99);
+    expect(reopened.isDirty()).toBe(true);
+    reopened.execute('UPDATE prodotti SET prezzo = prezzo * 1.10 WHERE id = 3');
+    expect(reopened.execute('SELECT prezzo FROM prodotti WHERE id = 3').rows[0].prezzo).toBe(21.99);
+  });
+});
